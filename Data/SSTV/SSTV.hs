@@ -40,6 +40,6 @@ waveData = WAVE header (concatAudio audioData)
                 , replicate 2 . concat $ sync ]
 
 makeWavFile :: WAVE -> IO ()
-makeWavFile wav = putWAVEFile "temp.wav" wav
+makeWavFile = putWAVEFile "temp.wav"
 
 main = makeWavFile waveData
