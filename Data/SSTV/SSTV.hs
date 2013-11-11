@@ -17,15 +17,15 @@ sound :: Double -- | Frequency
       -> Int32  -- | Volume, (maxBound :: Int32) for highest, 0 for lowest
       -> [Int32]
 sound freq len volume =
-  take (round $ len * (fromIntegral samplesPS)) $
-  map (round . (* fromIntegral volume)) $
-  map sin [0.0, (freq * 2 * pi / (fromIntegral samplesPS))..]
+  take (round $ len * fromIntegral samplesPS) $
+  map ((round . (* fromIntegral volume)) . sin)
+    [0.0, (freq * 2 * pi / fromIntegral samplesPS) ..]
 
 vox :: [[Int32]]
 vox = samples
   where
     tones = [1900, 1500, 1900, 1500, 2300, 1500, 2300, 1500]
-    samples = (map (\x -> sound x 0.1 (maxBound `div` 2)) tones)
+    samples = map (\x -> sound x 0.1 (maxBound `div` 2)) tones
 
 sync :: [[Int32]]
 sync = [ sound 1900 0.3 (maxBound `div` 2)
